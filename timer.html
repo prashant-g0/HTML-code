@@ -19,7 +19,7 @@
             }
 
         #digital-timer{
-            font-size: 2em;
+            font-size: 8em;
         }
         #buttons-container {
             display: flex;
@@ -28,7 +28,15 @@
         }
 
         #buttons-container button {
-            margin: 0 10px; 
+            margin: 0 10px;
+            font-size: 36px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.564);
+            transition: transform 0.2s ease-in-out;
         }
         </style>
 </head>
@@ -54,20 +62,28 @@
         }
     
         function startTimer() {
-            interval = setInterval(function () {
+            if (!interval){
+                interval = setInterval(function () {
                 seconds++;
                 updateDigitalTimer();
-            }, 1000);
+                }, 1000);
+            }
         }
     
         function stopTimer() {
-            clearInterval(interval);
+            if (interval){
+                clearInterval(interval);
+                interval = null;
+            }
         }
         function restartTimer() {
             stopTimer(); 
             seconds = 0; 
             updateDigitalTimer();
         }
+        document.getElementById("start-button").addEventListener("click", startTimer);
+        document.getElementById("stop-button").addEventListener("click", stopTimer);
+        document.getElementById("restart-button").addEventListener("click", restartTimer);
     </script>
     
 </body>
