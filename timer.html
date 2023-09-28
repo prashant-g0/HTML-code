@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counting Time</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: skyblue; /* Set background color to black */
+            color: white; /* Set text color to white for better visibility */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            }
+
+        #digital-timer{
+            font-size: 2em;
+        }
+        #buttons-container {
+            display: flex;
+            justify-content: center; 
+            margin-top: 20px; 
+        }
+
+        #buttons-container button {
+            margin: 0 10px; 
+        }
+        </style>
+</head>
+<body>
+    <div id="timer-container" style="background-color: blue; padding: 20px; border-radius: 10px;">
+        <div id="digital-timer">00:00</div>
+    </div>    
+<div id="buttons-container">
+    <button onclick="startTimer()">Start</button>
+    <button onclick="stopTimer()">Stop</button>
+    <button onclick="restartTimer()">Restart</button>
+</div>
+
+     <script>
+        let interval;
+        let seconds = 0;
+    
+        function updateDigitalTimer() {
+            const digitalTimer = document.getElementById("digital-timer");
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            digitalTimer.textContent = `${String(minutes).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+        }
+    
+        function startTimer() {
+            interval = setInterval(function () {
+                seconds++;
+                updateDigitalTimer();
+            }, 1000);
+        }
+    
+        function stopTimer() {
+            clearInterval(interval);
+        }
+        function restartTimer() {
+            stopTimer(); // Stop the timer if it's running
+            seconds = 0; // Reset seconds to zero
+            updateDigitalTimer(); // Update the display to show 00:00
+        }
+    </script>
+    
+</body>
+</html>
