@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body{
+            text-align: center;
+            background-color: palegoldenrod;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h1{
+            color: black;
+        }
+        .choices{
+            margin: 20px;
+        }
+        button{
+            background-color: aqua;
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        #result{
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        @keyframes rockAnimation {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes paperAnimation {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes scissorsAnimation {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+            100% { transform: rotate(0deg); }
+        }
+        #Rock.active {
+            animation: rockAnimation 0.5s ease infinite;
+        }
+
+        #Paper.active {
+            animation: paperAnimation 0.5s ease infinite;
+        }
+
+        #Scissors.active {
+            animation: scissorsAnimation 0.5s ease infinite;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rock, Paper, Scissors</h1>
+    <div class="choices">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
+    <div id="result"></div>
+
+    <script>
+        const buttons = document.querySelectorAll('button');
+        const resultDiv = document.getElementById('result');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+
+                buttons.forEach(btn => btn.classList.remove('active'));
+
+                const playerSelection = button.id;
+                const computerSelection = computerplay();
+                const roundResult = playRound(playerSelection, computerSelection);
+                resultDiv.textContent = roundResult;
+
+                button.classList.add('active');
+
+            });
+        });
+        function computerplay(){
+            const choices = ['rock','paper','scissors'];
+            const randomIndex = Math.floor(Math.random()*choices.length);
+            return choices[randomIndex];
+        }
+        function playRound(playerSelection, computerSelection){
+            playerSelection = playerSelection.toLowerCase();
+            computerSelection = computerSelection.toLowerCase();
+
+            if(playerSelection === computerSelection){
+                return "It's a tie";
+            } else if (
+                (playerSelection === 'rock' && computerSelection === 'scissors') || (playerSelection === 'scissors' && computerSelection === 'paper') || (playerSelection === 'paper' && computerSelection === 'rock')
+            ) {
+                return `You win! ${playerSelection} beats ${computerSelection}.`;
+            } else {
+                return `You lose! ${computerSelection} beats ${playerSelection}.`;
+            }
+        }
+    </script>
+</body>
+</html>
