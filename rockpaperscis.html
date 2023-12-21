@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body{
+            text-align: center;
+            background-color: #ccd5ae;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h1{
+            color: #1b263b;
+        }
+        .choices{
+            margin: 20px;
+        }
+        button{
+            background-color: #faedcd;
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        #result{
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            background-color: #415a77;
+            display: inline;
+            border-radius: 1rem;
+            padding: 1rem;
+        }
+</style>
+</head>
+
+<body>
+    <h1>Rock, Paper, Scissors</h1>
+
+    <div class="choices">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
+    
+    <div id="result">Play your Move</div>
+
+    <script>
+        const buttons = document.querySelectorAll('button');
+        const resultDiv = document.getElementById('result');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const playerSelection = button.id;
+                const computerSelection = computerplay();
+                const roundResult = playRound(playerSelection, computerSelection);
+                resultDiv.textContent = roundResult;
+            });
+        });
+        function computerplay(){
+            const choices = ['rock','paper','scissors'];
+            const randomIndex = Math.floor(Math.random()*3);
+            return choices[randomIndex];
+        }
+        function playRound(playerSelection, computerSelection){
+            playerSelection = playerSelection.toLowerCase();
+            computerSelection = computerSelection.toLowerCase();
+
+            if(playerSelection === computerSelection){
+                return "It's a tie";
+            } else if (
+                (playerSelection === 'rock' && computerSelection === 'scissors') || (playerSelection === 'scissors' && computerSelection === 'paper') || (playerSelection === 'paper' && computerSelection === 'rock')
+            ) {
+                return `You win! ${playerSelection} beats ${computerSelection}.`;
+            } else {
+                return `You lose! ${computerSelection} beats ${playerSelection}.`;
+            }
+        }
+    </script>
+</body>
+</html>
+
+                
+
+                
+
+               
